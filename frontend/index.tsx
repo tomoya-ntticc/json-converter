@@ -131,7 +131,11 @@ function outputRecords() {
                     }
 
                     if (cols["categories"].length == 0) cols["categories"] = null
-                    if (cols["movies"] !== null && !cols["movies"].includes("https://")) cols["movies"] = null
+                    if (cols["movies"] !== null && !cols["movies"].includes("https://")) {
+                        cols["movies"] = null;
+                    } else {
+                        cols["movies"] = JSON.parse(cols["movies"]);
+                    }
                     return cols
                 })))
             }
