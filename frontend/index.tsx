@@ -13,16 +13,6 @@ function getTablesAsHTML() {
     return <ul>{tableInfos}</ul>
 }
 
-function getTableNames() {
-    const base = useBase();
-    const tables = base.tables;
-    const tableNames = []
-    for (const table of tables) {
-        tableNames.push(table.name);
-    }
-    return tableNames
-}
-
 function getViewsAsHTML(table: Table) {
     const views = table.views;
     const viewInfos = []
@@ -32,34 +22,15 @@ function getViewsAsHTML(table: Table) {
     return <ul>{viewInfos}</ul>
 }
 
-function getViewNames(table: Table) {
-    const views = table.views;
-    const viewNames = []
-    for (const view of views) {
-        viewNames.push(view.name)
-    }
-    return viewNames
-}
-
 function getFieldsAsHTML(view) {
     const viewMetadata = useViewMetadata(view);
 
     return (
         <ul>
             {viewMetadata.visibleFields.map(field => (
-                <li key={field.id}>{field.name}</li>
+                <li>{field.id}, {field.name}</li>
             ))}
         </ul>
-    );
-}
-
-function getFieldNames(view) {
-    const viewMetadata = useViewMetadata(view);
-
-    return (
-        Array.from(viewMetadata.visibleFields.map(field => (
-            field.name
-        )))
     );
 }
 
@@ -120,6 +91,9 @@ function outputRecords() {
                             }
                             if (field.name == "evala_category") {
                                 cols["label"] = `evala/${row.getCellValue(field).name}`
+                                if (table.name == 'evala_at_ICC') {
+                                    cols["label"] = `${cols["label"]}＠ICC`
+                                }
                                 continue
                             }
                             if (field.name == "nullDate") {
@@ -129,7 +103,7 @@ function outputRecords() {
                             cols[field.name] = row.getCellValue(field)
                         }
                     }
-
+                    
                     if (cols["categories"].length == 0) cols["categories"] = null
                     if (cols["movies"] !== null && !cols["movies"].includes("https://")) {
                         cols["movies"] = null;
@@ -152,7 +126,6 @@ function HelloWorldTypescriptApp() {
     // YOUR CODE GOES HERE
     return (
         <div>
-            {/* Hello world 🚀<br /> */}
             {/* {getTablesAsHTML()} */}
             {outputRecords()}
         </div>
