@@ -1,5 +1,7 @@
 # json-converter
-Convert table tpo json on AirTable APPS
+Convert table to json on Airtable Extensions
+
+<img width="2959" alt="Image" src="https://github.com/user-attachments/assets/d936b86c-b17d-4b5b-a2a6-64933e9ed1cf" />
 
 ## Requirements
 
@@ -18,6 +20,22 @@ Convert table tpo json on AirTable APPS
 npm install
 ```
 
+#### Personal access token
+
+1. Go to `Builder Hub > Developers > Personal access tokens` on Airtable.
+2. Select `json-converter_202502` .
+3. Add base for access.
+
+##### (re-set token to local)
+
+1. ( regenerate token if needed. )
+2. `block set-api-key` to set token.
+3. `cat ~/.config/.airtableblocksrc.json`
+
+#### Table view
+
+- Add a view named `出力用` to make the table columns the output target.
+
 ### Develop
 
 ```shell
@@ -35,11 +53,26 @@ then
 block release
 ```
 
+### Arrange output to publish
+
+1. Copy json from output of `json-converter` on Airtable extension window.
+2. Devide arrays as categories.
+
+- e.g. 
+   - sound-art.json
+   - icc.json
+   - evala-parsonal.json
+   - evala-collaboration.json
+   - evala-composition.json
+   - evala-others.json
+   - technology.json
+
 ## Misc
 
 ### References
 
 - [AirTable Developers](https://www.airtable.com/developers)
+- [Beta: Run in multiple bases - Airtable Blocks SDK](https://airtable.com/developers/extensions/guides/run-in-multiple-bases)
 
 ## Notes
 
