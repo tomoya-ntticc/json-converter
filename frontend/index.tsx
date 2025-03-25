@@ -108,7 +108,11 @@ function outputRecords() {
                     if (cols["movies"] !== null && !cols["movies"].includes("https://")) {
                         cols["movies"] = null;
                     } else {
-                        cols["movies"] = JSON.parse(cols["movies"]);
+                        try {
+                            cols["movies"] = JSON.parse(cols["movies"]);
+                        } catch {
+                            cols["movies"] = cols["movies"].split(",").map((url) => url.trim());
+                        }
                     }
                     return cols
                 })))
