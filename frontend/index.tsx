@@ -72,7 +72,7 @@ function outputRecords() {
                     for (const field of fields) {
                         // Process to arrange of ICC categories
                         if (field.name.includes("from Categories")) {
-                            let values = row.getCellValueAsString(field).split(", ");
+                            let values = row.getCellValueAsString(field) != "" ? row.getCellValueAsString(field).split(", ") : [];
                             for (let i=0; i<values.length; i++) {
                                 const key = field.name.replace(" (from Categories)", "");
                                 if (cols["categories"].length == 0) {
@@ -80,7 +80,7 @@ function outputRecords() {
                                         cols["categories"].push(structuredClone(templateCategory));
                                       }
                                 }
-                                cols["categories"][i][key] =  values[i];
+                                cols["categories"][i][key] = key == "id" ?  parseInt(values[i]) : values[i];
                             }
                         }
                         // Process to arrange of values
@@ -114,6 +114,11 @@ function outputRecords() {
                             cols["movies"] = cols["movies"].split(",").map((url) => url.trim());
                         }
                     }
+
+                    if (cols["url"] == "null") cols["url"] = null
+                    if (cols["image_m"] == "null") cols["image_m"] = null;
+                    if (cols["image_sq"] == "null") cols["image_sq"] = null
+
                     return cols
                 })))
             }
